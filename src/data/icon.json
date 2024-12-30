@@ -1,0 +1,118 @@
+[
+  {
+    "type": "pdf",
+    "icon": "vscode-icons:file-type-pdf2"
+  },
+  {
+    "type": "md",
+    "icon": "skill-icons:markdown-dark"
+  },
+  {
+    "type": "docx",
+    "icon": "vscode-icons:file-type-word"
+  },
+  {
+    "type": "doc",
+    "icon": "vscode-icons:file-type-word"
+  },
+  {
+    "type": "pptx",
+    "icon": "vscode-icons:file-type-powerpoint"
+  },
+  {
+    "type": "ppt",
+    "icon": "vscode-icons:file-type-powerpoint"
+  },
+  {
+    "type": "xlsx",
+    "icon": "vscode-icons:file-type-excel"
+  },
+  {
+    "type": "html",
+    "icon": "vscode-icons:file-type-html"
+  },
+  {
+    "type": "css",
+    "icon": "devicon:css3"
+  },
+  {
+    "type": "js",
+    "icon": "vscode-icons:file-type-js"
+  },
+  {
+    "type": "ts",
+    "icon": "fluent:code-ts-16-filled"
+  },
+  {
+    "type": "xml",
+    "icon": "vscode-icons:file-type-xml"
+  },
+  {
+    "type": "java",
+    "icon": "logos:java"
+  },
+  {
+    "type": "cpp",
+    "icon": "vscode-icons:file-type-cpp3"
+  },
+  {
+    "type": "json",
+    "icon": "tabler:json"
+  },
+  {
+    "type": "jpg",
+    "icon": "vscode-icons:file-type-image"
+  },
+  {
+    "type": "png",
+    "icon": "vscode-icons:file-type-image"
+  },
+  {
+    "type": "gif",
+    "icon": "mage:gif-fill"
+  },
+  {
+    "type": "zip",
+    "icon": "vscode-icons:file-type-zip"
+  },
+  {
+    "type": "rar",
+    "icon": "vscode-icons:file-type-zip"
+  },
+  {
+    "type": "exe",
+    "icon": "bi:filetype-exe"
+  },
+  {
+    "type": "vue",
+    "icon": "logos:vue"
+  },
+  {
+    "type": "less",
+    "icon": "vscode-icons:file-type-less"
+  },
+  {
+    "type": "sass",
+    "icon": "devicon:sass"
+  },
+  {
+    "type": "xmind",
+    "icon": "flat-color-icons:mind-map"
+  },
+  {
+    "type": "py",
+    "icon": "logos:python"
+  },
+  {
+    "type": "sql",
+    "icon": "skill-icons:mysql-dark"
+  },
+  {
+    "type": "ttf",
+    "icon": "bi:filetype-ttf"
+  },
+  {
+    "type": "psd",
+    "icon": "logos:adobe-photoshop"
+  }
+]
