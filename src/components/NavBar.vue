@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import ThemeChangeBtn from "@/components/ThemeChangeBtn.vue";
+import LanguageBtn from "@/components/LanguageBtn.vue";
+import IconBtn from "@/components/IconBtn.vue";
+const toGithub = () => {
+  window.open(`https://github.com/zhenghaoyang24/filetree`, "_blank");
+}
 </script>
 
 <template>
   <nav class="navbar">
     <div class="nav-logo">filetree</div>
-    <div class="nav-ctrl-">
-      <ThemeChangeBtn></ThemeChangeBtn>
+    <div class="nav-ctrl">
+      <LanguageBtn/>
+      <ThemeChangeBtn/>
+      <IconBtn icon_="uil:github" :function_="toGithub"></IconBtn>
     </div>
   </nav>
 </template>
@@ -28,10 +35,16 @@ import ThemeChangeBtn from "@/components/ThemeChangeBtn.vue";
   background-color: var(--nav-bg-color);
 
 
-  .nav-ctrl-{
+  .nav-ctrl{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    >span{
+      margin: 0 4px;
+    }
+    .language-btn{
+      color: var(--p-text-color);
+    }
   }
 
   .nav-logo{

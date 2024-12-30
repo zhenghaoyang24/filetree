@@ -15,6 +15,7 @@ interface FileItem {
   children?: FileItem[];
   collapsed?: boolean;
 }
+
 // 文件信息
 const fileInfo = ref<{
   name: string;
@@ -86,17 +87,17 @@ const buildFileMap = (files: FileList) => {
     <div class="file-tree">
       <label class="custom-file-label">
         <input type="file" style="display: none" id="directoryInput" webkitdirectory @change="handleFolderSelect"/>
-        选择文件
+        {{ $t('selectFileBtn.value') }}
       </label>
       <TreeNode v-if="fileTree.length > 0" :files="fileTree" :fileMap="fileMap"/>
     </div>
     <div class="file-info" v-if="fileInfo">
-      <div class="file-info-title">文件属性</div>
-      <div>文件名：{{fileInfo?.name}}</div>
-      <div>文件大小：{{fileInfo?.size}} k</div>
-      <div>相对路径：{{fileInfo?.path}}</div>
-      <div>文件类型：{{fileInfo?.type}}</div>
-      <div>修改时间：{{fileInfo?.lastModified}}</div>
+      <div class="file-info-title">{{ $t('fileInfo.title') }}</div>
+      <div><span>{{ $t('fileInfo.name') }}</span>：{{ fileInfo?.name }}</div>
+      <div><span>{{ $t('fileInfo.type') }}</span>：{{ fileInfo?.type }}</div>
+      <div><span>{{ $t('fileInfo.size') }}</span>：{{ fileInfo?.size }} k</div>
+      <div><span>{{ $t('fileInfo.path') }}</span>：{{ fileInfo?.path }}</div>
+      <div><span>{{ $t('fileInfo.lastModified') }}</span>：{{ fileInfo?.lastModified }}</div>
     </div>
   </main>
 </template>
@@ -108,6 +109,7 @@ const buildFileMap = (files: FileList) => {
   display: flex;
   justify-content: space-between;
   padding: calc(@nav-height + 10px) 10px 10px 10px;
+
   .file-tree {
     .custom-file-label {
       background-color: #6aa0b6; /* 背景颜色 */
@@ -121,29 +123,36 @@ const buildFileMap = (files: FileList) => {
       display: inline-block;
       box-shadow: 0 0 10px 2px var(--box-shadow-color);
       transition: background-color 150ms;
+
       &:hover {
         background-color: #8cccd5; /* 悬停时的背景颜色 */
       }
     }
 
   }
-  .file-info{
+
+  .file-info {
     box-shadow: 0 0 10px 2px var(--box-shadow-color);
-    padding: 10px;
+    padding: 15px;
     right: 10px; /* 距离右侧 0 */
     position: fixed;
     max-width: 400px;
     border-radius: 9px;
     background-color: var(--nav-bg-color);
     color: var(--p-text-color);
-    .file-info-title{
+
+    .file-info-title {
       font-size: 16px;
       font-weight: bolder;
       padding-bottom: 6px;
     }
-    >div{
+
+    > div {
       padding: 3px;
       font-size: 15px;
+      >span{
+        font-weight: bold;
+      }
     }
   }
 }
