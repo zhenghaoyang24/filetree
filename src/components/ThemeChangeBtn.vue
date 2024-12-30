@@ -11,7 +11,6 @@ onBeforeMount(() => {
 })
 
 const changeThemeFn = () => {
-  console.log(store.dataTheme);
   if (store.dataTheme === 'dark') {
     store.storeChangeTheme('light')
     currentTheme.value = 'light';

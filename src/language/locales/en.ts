@@ -2,6 +2,9 @@ export default {
     selectFileBtn: {
         value: "Choose File",
     },
+    importBtn:{
+        value: "Export File Structure",
+    },
     fileInfo:{
         title: "File Properties",
         name: "Name",

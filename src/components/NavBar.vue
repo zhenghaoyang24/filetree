@@ -2,6 +2,7 @@
 import ThemeChangeBtn from "@/components/ThemeChangeBtn.vue";
 import LanguageBtn from "@/components/LanguageBtn.vue";
 import IconBtn from "@/components/IconBtn.vue";
+import LogoIcon from "@/components/icons/LogoIcon.vue";
 const toGithub = () => {
   window.open(`https://github.com/zhenghaoyang24/filetree`, "_blank");
 }
@@ -9,7 +10,10 @@ const toGithub = () => {
 
 <template>
   <nav class="navbar">
-    <div class="nav-logo">filetree</div>
+    <div class="nav-logo">
+      <LogoIcon></LogoIcon>
+      File Tree
+    </div>
     <div class="nav-ctrl">
       <LanguageBtn/>
       <ThemeChangeBtn/>
@@ -48,6 +52,11 @@ const toGithub = () => {
   }
 
   .nav-logo{
+    svg{
+      margin-right: 8px;
+    }
+    display: flex;
+    align-items: center;
     color: var(--p-text-color);
   }
 }
