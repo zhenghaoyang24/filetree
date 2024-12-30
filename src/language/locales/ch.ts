@@ -12,5 +12,8 @@ export default {
         type:"类型",
         path:"相对路径",
         lastModified:"修改时间",
+    },
+    dialog:{
+        title: "文件结构",
     }
 };

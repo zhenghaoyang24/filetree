@@ -12,5 +12,8 @@ export default {
         type:"Type",
         path:"Relative Path",
         lastModified:"Modified Time",
+    },
+    dialog:{
+        title: "File Structure",
     }
 };

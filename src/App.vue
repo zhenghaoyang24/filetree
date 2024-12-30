@@ -3,6 +3,7 @@ import {onBeforeMount, provide, ref} from "vue"
 import NavBar from "@/components/NavBar.vue";
 import TreeNode from './components/TreeNode.vue';
 import {useInfoStore} from "@/stores/info.ts";
+import TextAreaDialog from "@/components/TextAreaDialog.vue";
 
 const store = useInfoStore();
 onBeforeMount(() => {
@@ -82,7 +83,6 @@ const buildFileMap = (files: FileList) => {
     const file = files[i];
     fileMap.value[file.webkitRelativePath] = file;
   }
-  console.log(fileMap.value);
 };
 
 
@@ -92,7 +92,22 @@ const buildFileMap = (files: FileList) => {
 interface FolderStructure {
   [key: string]: FolderStructure | string[]; // 键是文件夹或文件的名称，值可以是子文件夹（FolderStructure）或文件列表（string[]）
 }
-// 生成文件夹结构的 .txt 文件
+// 生成文件夹结构
+const structureString = ref<string>('');  //文件结构string
+const structureDialogState = ref<boolean>(false);  // dialog 状态
+const changeDialogState = () => {
+  if (structureDialogState.value){
+    structureDialogState.value = false
+    document.body.style.overflow = 'auto'; // 恢复滚动
+    document.body.style.overscrollBehavior = '';
+
+  }else{
+    structureDialogState.value = true
+    document.body.style.overflow = 'hidden'; // 禁止滚动
+    document.body.style.overscrollBehavior = 'contain'; // 防止滚动穿透
+  }
+}
+provide('changeDialogState', changeDialogState);
 const generateFolderStructureTxt = () => {
   // 获取所有文件路径
   const filePaths = Object.keys(fileMap.value);
@@ -134,21 +149,13 @@ const generateFolderStructureTxt = () => {
     }
     return result; // 返回格式化后的字符串
   };
-
-  const structureString = convertStructureToString(structure); // 将文件夹结构转换为字符串
-
-  // 创建 Blob 对象并生成下载链接
-  const blob = new Blob([structureString], { type: 'text/plain' }); // 创建 Blob 对象，内容为文件夹结构字符串
-  const url = URL.createObjectURL(blob); // 生成 Blob URL
-  const a = document.createElement('a'); // 创建 <a> 标签
-  a.href = url; // 设置下载链接
-  a.download = 'folder_structure.txt'; // 设置下载文件名
-  a.click(); // 触发下载
-  URL.revokeObjectURL(url); // 释放 Blob URL
+  structureString.value = convertStructureToString(structure); // 将文件夹结构转换为字符串
+  changeDialogState()
 };
 </script>
 
 <template>
+  <TextAreaDialog v-if="structureDialogState" :structure="structureString"/>
   <NavBar></NavBar>
   <main class="main-box">
     <div class="file-tree">
