@@ -26,6 +26,7 @@ const props = defineProps({
 
 <style scoped lang="less">
 .dialog-box{
+  border: none;
   padding: 0;
   margin: 0;
   z-index: 9999;
