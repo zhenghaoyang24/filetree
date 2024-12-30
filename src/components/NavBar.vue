@@ -13,6 +13,7 @@ import ThemeChangeBtn from "@/components/ThemeChangeBtn.vue";
 
 <style scoped lang="less">
 .navbar {
+  box-shadow: 0 0 10px 2px var(--box-shadow-color);
   z-index: 10;
   position: fixed;
   padding: 0 10px;

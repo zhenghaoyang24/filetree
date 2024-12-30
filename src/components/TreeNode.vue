@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, ref} from 'vue';
+import {defineProps, inject, ref} from 'vue';
 import {Icon} from "@iconify/vue";
 
 interface FileItem {
@@ -20,6 +20,14 @@ const toggleCollapse = (item: FileItem) => {
     item.collapsed = !item.collapsed;
   }
 };
+// 注入 updateFileInfo 方法
+const updateFileInfo = inject<(fileInfo: {
+  name: string;
+  type: string;
+  path: string;
+  size: number;
+  lastModified: string;
+}) => void>('updateFileInfo');
 
 // 处理点击事件
 const handleItemClick = (item: FileItem) => {
@@ -27,13 +35,14 @@ const handleItemClick = (item: FileItem) => {
     toggleCollapse(item); // 如果是文件夹，切换折叠状态
   } else {
     const file = props.fileMap[item.path];
-    if (file) {
-      console.log('文件名称:', item.name);
-      console.log('文件路径:', item.path);
-      console.log('文件类型:', file.type ? file.type : '未知');
-      console.log('文件大小:', file.size + ' bytes');
-      console.log('创建时间:', file.lastModified ? new Date(file.lastModified).toLocaleString() : '未知');
-      console.log('修改时间:', file.lastModified ? new Date(file.lastModified).toLocaleString() : '未知');
+    if (file && updateFileInfo) {
+      updateFileInfo({
+        name: item.name,
+        type: file.type ? file.type : '未知',
+        path: file.webkitRelativePath,
+        size: file.size,
+        lastModified: file.lastModified ? new Date(file.lastModified).toLocaleString() : '未知',
+      });
     }
   }
 };
