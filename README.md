@@ -1,5 +1,7 @@
 # FileTree
 
+[English](https://github.com/zhenghaoyang24/filetree/blob/master/README_EN.md)
+
 ## 项目简介
 
 FileTree 是一个基于 `Vue3` 的工具，你可以选择一个本地文件夹，并根据其结构生成清晰的文件树。
