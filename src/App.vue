@@ -189,7 +189,7 @@ const generateFolderStructureTxt = () => {
   .file-tree {
     .custom-file-label {
       background-color: #6aa0b6; /* 背景颜色 */
-      color: var(--p-text-color); /* 字体颜色 */
+      color: @p-text-color-dark; /* 字体颜色 */
       font-weight: bold;
       padding: 6px 10px;
       border: none;
