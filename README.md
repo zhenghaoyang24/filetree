@@ -1,4 +1,4 @@
-# FileTree
+![{7003FB0B-A4FD-4DA6-912F-55AA6A9B4721}](https://github.com/user-attachments/assets/9e5ca231-27ed-46c9-8934-1915045ab6df)# FileTree
 
 ## 项目简介
 
@@ -15,26 +15,19 @@ FileTree 是一个基于 `Vue3` 的工具，你可以选择一个本地文件夹
 
 ## 示例
 
-### 文件树展示
-```
-📁 project
-├── 📁 src
-│   ├── 📄 main.js
-│   └── 📄 App.vue
-├── 📁 public
-│   └── 📄 index.html
-└── 📄 README.md
-```
+### 文件树示例
+![{7003FB0B-A4FD-4DA6-912F-55AA6A9B4721}](https://github.com/user-attachments/assets/5d083206-63e7-4372-8898-cf2390491ddf)
+
 
 ### 导出的 Markdown 格式
 ```markdown
-- project
-  - src
-    - main.js
-    - App.vue
-  - public
-    - index.html
-  - README.md
+- example
+  - App.vue
+  - index.ts
+  - folder-02
+    - JavaScript.js
+  - folder-01
+    - text.txt
 ```
 
 ## 安装与运行
