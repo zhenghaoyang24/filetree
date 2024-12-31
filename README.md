@@ -1,4 +1,4 @@
-![{7003FB0B-A4FD-4DA6-912F-55AA6A9B4721}](https://github.com/user-attachments/assets/9e5ca231-27ed-46c9-8934-1915045ab6df)# FileTree
+# FileTree
 
 ## 项目简介
 
