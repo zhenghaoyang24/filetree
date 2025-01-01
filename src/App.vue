@@ -43,7 +43,6 @@ const selFolderName = ref<string>('');
 // 处理文件夹选择
 const handleFolderSelect = (event: Event) => {
   const input = event.target as HTMLInputElement;
-
   if (input.files !== null && input.files.length > 0) {
     fileInfo.value = null
     // 提取选中的文件夹名称
@@ -86,22 +85,22 @@ const buildFileMap = (files: FileList) => {
 };
 
 
-
 /*导出文件结构*/
 // 定义文件夹结构的类型
 interface FolderStructure {
   [key: string]: FolderStructure | string[]; // 键是文件夹或文件的名称，值可以是子文件夹（FolderStructure）或文件列表（string[]）
 }
+
 // 生成文件夹结构
 const structureString = ref<string>('');  //文件结构string
 const structureDialogState = ref<boolean>(false);  // dialog 状态
 const changeDialogState = () => {
-  if (structureDialogState.value){
+  if (structureDialogState.value) {
     structureDialogState.value = false
     document.body.style.overflow = 'auto'; // 恢复滚动
     document.body.style.overscrollBehavior = '';
 
-  }else{
+  } else {
     structureDialogState.value = true
     document.body.style.overflow = 'hidden'; // 禁止滚动
     document.body.style.overscrollBehavior = 'contain'; // 防止滚动穿透
@@ -153,7 +152,6 @@ const generateFolderStructureTxt = () => {
   changeDialogState()
 };
 </script>
-
 <template>
   <TextAreaDialog v-if="structureDialogState" :structure="structureString"/>
   <NavBar></NavBar>
