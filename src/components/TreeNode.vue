@@ -58,10 +58,8 @@ interface IconConfig {
 const getFileIcon = (filename: string): string | undefined => {
 // 获取文件后缀
   const fileExtension = filename.split('.').pop()?.toLowerCase();
-
   // 在 icon.json 中查找对应的图标
   const iconConfig = icons.find((icon: IconConfig) => icon.type === fileExtension);
-
   // 返回图标，如果未找到则返回 undefined
   return iconConfig ? iconConfig.icon : 'flat-color-icons:document';
 }
