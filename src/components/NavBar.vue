@@ -55,6 +55,7 @@ const toGithub = () => {
     svg{
       margin-right: 8px;
     }
+    font-family: '思源黑体',sans-serif;
     display: flex;
     align-items: center;
     color: var(--p-text-color);

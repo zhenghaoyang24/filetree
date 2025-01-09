@@ -1,7 +1,13 @@
 @import "@/assets/variables.less";
 @import "@/assets/theme.less";
-
+@font-face {
+    font-family: 'MapleMono'; /* 自定义字体的名称 */
+    src: url('font/MapleMono-CN-Regular.ttf') format('truetype'); /* TTF字体文件的路径 */
+    /*src: url('/font/segoesc.ttf') format('truetype'); !* TTF字体文件的路径 *!*/
+    /*src: url('/font/segoesc.woff') format('woff'); !* TTF字体文件的路径 *!*/
+}
 body, html {
+    font-family: MapleMono, serif;
     width: 100%;
     height: 100%;
     padding: 0;
