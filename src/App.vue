@@ -27,8 +27,8 @@ onBeforeMount(() => {
   height: calc(100vh - @nav-height - 20px );
   overflow: hidden;
   gap: 20px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   padding: calc(@nav-height + 10px) 10px 10px 10px;
 }
 </style>

@@ -8,16 +8,12 @@ export const useInfoStore = defineStore(
     // 主题
     const dataTheme = ref("light");
     const storeChangeTheme = (theme: string) => {
-      // console.log(theme)
       if (theme === "light") {
         dataTheme.value = "light";
         window.document.documentElement.setAttribute("theme", "light");
-        // console.log(dataTheme.value)
-        // console.log(1)
       } else {
         window.document.documentElement.setAttribute("theme", "dark");
         dataTheme.value = "dark";
-        // console.log(dataTheme.value)
       }
     };
     const storeGetTheme = () => {
@@ -37,7 +33,6 @@ export const useInfoStore = defineStore(
         }else{
             dataFileInfo.value = null;
         }
-        console.log(fileInfo)
     };
 
     // 预览相关
@@ -48,8 +43,11 @@ export const useInfoStore = defineStore(
       if(dataFilePreview.value === null) dataFilePreview.value = {filePath,fileMap}
       dataFilePreview.value.filePath = filePath
     }
+    const clearFilePreview = () =>{
+      dataFilePreview.value = null
+    }
 
-    return { dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo,dataFilePreview,changeFilePreview};
+    return { dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo,dataFilePreview,changeFilePreview,clearFilePreview};
   },
 
   {

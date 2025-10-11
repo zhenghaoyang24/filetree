@@ -55,6 +55,8 @@ const handleFolderSelect = (event: Event) => {
     fileTree.value = buildFileTree(input.files);
     buildFileMap(input.files);
   }
+  // 请空预览数据
+  inforStore.clearFilePreview()
 };
 // 构建文件树
 const buildFileTree = (files: FileList): FileItem[] => {
@@ -164,10 +166,8 @@ const generateFolderStructureTxt = () => {
 
 <style scoped lang="less">
   .file-tree {
-    width: 360px;
-    max-height: calc(100vh - @nav-height - 40px );
+    max-height: calc(100vh - @nav-height - 10px );
     overflow: auto;
-
     .button {
       background-color: #6aa0b6; /* 背景颜色 */
       color: @p-text-color-dark; /* 字体颜色 */

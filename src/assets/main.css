@@ -1,14 +1,29 @@
 @import "@/assets/variables.less";
 @import "@/assets/theme.less";
-@font-face {
-    font-family: 'MapleMono'; /* 自定义字体的名称 */
-    src: url('font/MapleMono-CN-Regular.ttf') format('truetype'); /* TTF字体文件的路径 */
-    /*src: url('/font/segoesc.ttf') format('truetype'); !* TTF字体文件的路径 *!*/
-    /*src: url('/font/segoesc.woff') format('woff'); !* TTF字体文件的路径 *!*/
+
+body,
+html {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: var(--p-bg-color);
 }
-body, html {
-    font-family: MapleMono, serif;
-    padding: 0;
-    margin: 0;
-    background-color: var(--p-bg-color);
+/* 设置滚动条宽度 */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* 隐藏轨道背景 */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* 滑块样式 + 用 border 模拟外边距 */
+::-webkit-scrollbar-thumb {
+  background: var(--thumb-color);
+  border-radius: 10px;
+  /* 关键：用透明 border 模拟“外边距” */
+  border: 4px solid transparent;
+  /* 让背景只绘制在 padding-box，不覆盖 border 区域 */
+  background-clip: padding-box;
 }
