@@ -31,11 +31,11 @@ const inforStore = useInfoStore();
 
 <style scoped>
   .file-info {
+    z-index: 1;
     box-shadow: 0 0 10px 2px var(--box-shadow-color);
     padding: 15px;
-    right: 10px; /* 距离右侧 0 */
-    position: fixed;
-    max-width: 400px;
+    width: 360px;
+    height: fit-content;
     border-radius: 9px;
     background-color: var(--nav-bg-color);
     color: var(--p-text-color);

@@ -40,7 +40,16 @@ export const useInfoStore = defineStore(
         console.log(fileInfo)
     };
 
-    return { dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo};
+    // 预览相关
+    const dataFilePreview = ref<{
+      filePath: string,fileMap:Record<string, File>
+    } | null>(null);
+    const changeFilePreview = (filePath: string,fileMap:Record<string, File>) =>{
+      if(dataFilePreview.value === null) dataFilePreview.value = {filePath,fileMap}
+      dataFilePreview.value.filePath = filePath
+    }
+
+    return { dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo,dataFilePreview,changeFilePreview};
   },
 
   {

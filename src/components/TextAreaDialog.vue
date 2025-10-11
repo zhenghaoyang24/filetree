@@ -39,10 +39,11 @@ const copyText = ()=>{
   border: none;
   padding: 0;
   margin: 0;
-  z-index: 9999;
+  z-index: 999;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
