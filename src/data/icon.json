@@ -33,7 +33,7 @@
   },
   {
     "type": "css",
-    "icon": "devicon:css3"
+    "icon": "vscode-icons:file-type-css"
   },
   {
     "type": "js",
@@ -85,7 +85,7 @@
   },
   {
     "type": "vue",
-    "icon": "logos:vue"
+    "icon": "vscode-icons:file-type-vue"
   },
   {
     "type": "less",
@@ -114,5 +114,25 @@
   {
     "type": "psd",
     "icon": "logos:adobe-photoshop"
+  },
+  {
+    "type": "woff",
+    "icon": "bi:filetype-woff"
+  },
+  {
+    "type": "ttf",
+    "icon": "bi:filetype-ttf"
+  },
+  {
+    "type": "svg",
+    "icon": "catppuccin:svg"
+  },
+  {
+    "type": "jsx",
+    "icon": "vscode-icons:file-type-reactjs"
+  },
+  {
+    "type": "xml",
+    "icon": "vscode-icons:file-type-xml"
   }
 ]
