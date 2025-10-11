@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import {defineProps, inject, ref} from 'vue';
 import {Icon} from "@iconify/vue";
-
-interface FileItem {
-  name: string;
-  path: string;
-  children?: FileItem[];
-  collapsed?: boolean;
-}
+import {type FileInfo, type FileItem} from "@/types/file";
+import {useInfoStore} from "../stores/info";
+const inforStore = useInfoStore();
 
 const props = defineProps<{
-  files: FileItem[];
+  files: FileItem[] ;
   fileMap: Record<string, File>; // 用于存储文件路径和 File 对象的映射
 }>();
 
@@ -20,31 +16,32 @@ const toggleCollapse = (item: FileItem) => {
     item.collapsed = !item.collapsed;
   }
 };
-// 注入 updateFileInfo 方法
-const updateFileInfo = inject<(fileInfo: {
-  name: string;
-  type: string;
-  path: string;
-  size: number;
-  lastModified: string;
-}) => void>('updateFileInfo');
+
+const updateFileInfo = (info:FileInfo)=>{
+  // console.log('updateFileInfo', info);
+  inforStore.changeFileInfo(info);
+}
 
 // 处理点击事件
+const previewFile = inject<(filePath: string) => void>('previewFile');
 const handleItemClick = (item: FileItem) => {
   if (item.children) {
     toggleCollapse(item); // 如果是文件夹，切换折叠状态
   } else {
     const file = props.fileMap[item.path];
-    if (file && updateFileInfo) {
-      updateFileInfo({
+    if (file) {
+      const info = {
         name: item.name,
         type: file.type ? file.type : '未知',
         path: file.webkitRelativePath,
         size: file.size,
         lastModified: file.lastModified ? new Date(file.lastModified).toLocaleString() : '未知',
-      });
+      }
+      updateFileInfo(info);
     }
   }
+  // 👇 新增：触发预览
+  previewFile?.(item.path);
 };
 
 // 返回图标name
