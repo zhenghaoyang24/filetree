@@ -15,5 +15,8 @@ export default {
     },
     dialog:{
         title: "文件结构",
-    }
+    },
+    preview:{
+        title: "预览",
+    },
 };

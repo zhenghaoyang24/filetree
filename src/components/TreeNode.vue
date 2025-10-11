@@ -18,12 +18,10 @@ const toggleCollapse = (item: FileItem) => {
 };
 
 const updateFileInfo = (info:FileInfo)=>{
-  // console.log('updateFileInfo', info);
   inforStore.changeFileInfo(info);
 }
 
 // 处理点击事件
-const previewFile = inject<(filePath: string) => void>('previewFile');
 const handleItemClick = (item: FileItem) => {
   if (item.children) {
     toggleCollapse(item); // 如果是文件夹，切换折叠状态
@@ -39,9 +37,8 @@ const handleItemClick = (item: FileItem) => {
       }
       updateFileInfo(info);
     }
+    inforStore.changeFilePreview(item.path,props.fileMap)
   }
-  // 👇 新增：触发预览
-  previewFile?.(item.path);
 };
 
 // 返回图标name

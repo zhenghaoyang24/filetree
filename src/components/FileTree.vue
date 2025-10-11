@@ -164,6 +164,10 @@ const generateFolderStructureTxt = () => {
 
 <style scoped lang="less">
   .file-tree {
+    width: 360px;
+    max-height: calc(100vh - @nav-height - 40px );
+    overflow: auto;
+
     .button {
       background-color: #6aa0b6; /* 背景颜色 */
       color: @p-text-color-dark; /* 字体颜色 */
