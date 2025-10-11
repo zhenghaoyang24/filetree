@@ -1,28 +1,45 @@
 <template>
-  <!-- 👇 新增预览区域 -->
-  <div class="file-preview" v-if="previewContent || previewPdfUrl">
+  <div class="file-preview" v-if="inforStore.dataFilePreview">
     <div class="preview-title">{{ $t("preview.title") }}</div>
+    <!-- 消息 -->
+    <pre v-if="previewMessage" class="code-preview">{{ previewMessage }}</pre>
     <!-- 文本预览 -->
-    <pre v-if="previewContent" class="code-preview">{{ previewContent }}</pre>
+    <pre
+    v-else-if="previewTextContent"
+      class="code-preview"
+      >{{ previewTextContent }}</pre
+    >
     <!-- PDF 预览 -->
     <iframe
-      v-if="previewPdfUrl"
+      v-else-if="previewPdfUrl"
       :src="previewPdfUrl"
       class="pdf-preview"
       frameborder="0"
     ></iframe>
+    <!-- 图片预览 -->
+    <img
+      v-else-if="previewImageUrl"
+      :src="previewImageUrl"
+      class="image-preview"
+      alt="Preview"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { provide, ref, watch, watchEffect } from "vue";
+import { ref, watch } from "vue";
 import { useInfoStore } from "../stores/info";
 const inforStore = useInfoStore();
-// 预览文件内容
+import { textExtensions, imageExtensions } from "@/data/fileExtensions.ts";
 
-// ====== 新增：预览相关逻辑 ======
-const previewContent = ref<string | null>(null);
+// 预览文件内容
+const previewTextContent = ref<string | null>(null);
 const previewPdfUrl = ref<string | null>(null);
+const previewImageUrl = ref<string | null>(null);
+// 消息
+const previewMessage = ref<string | null>(null);
+
+const previewFileType = ref<"text" | "pdf" | "image">();
 
 watch(
   () => inforStore.dataFilePreview,
@@ -33,67 +50,14 @@ watch(
       const file = fileMap[filePath];
       if (!file) return;
 
-      if (file.size > 10 * 1024 * 1024) {
-        previewContent.value = "⚠️ 文件过大，不支持预览";
-        return;
-      }
-
-      // 清理上一个 PDF URL（防止内存泄漏）
-      if (previewPdfUrl.value) {
-        URL.revokeObjectURL(previewPdfUrl.value);
-        previewPdfUrl.value = null;
-      }
-      previewContent.value = null;
-
+      // 获取文件扩展名
       const ext = filePath.split(".").pop()?.toLowerCase();
 
-      // 支持的文本类型
-      const textExtensions = [
-        "txt",
-        "vue",
-        "jsx",
-        "js",
-        "ts",
-        "tsx",
-        "xml",
-        "json",
-        "html",
-        "htm",
-        "css",
-        "scss",
-        "md",
-        "yaml",
-        "yml",
-        "ini",
-        "log",
-        "sql",
-        "java",
-      ];
-
-      if (ext && textExtensions.includes(ext)) {
-        try {
-          const content = await file.text();
-          previewContent.value = content;
-        } catch (err) {
-          previewContent.value = "❌ 无法读取文件内容";
-        }
-        return;
-      }
-
-      // PDF 预览
-      if (ext === "pdf") {
-        previewPdfUrl.value = URL.createObjectURL(file);
-        return;
-      }
-      // 不支持的类型
-      previewContent.value = "⚠️ 不支持预览此类型文件";
+      // 获取文件内容
+      getPreviewContent(ext, file);
     } else {
       // 清理预览内容
-      previewContent.value = null;
-      if (previewPdfUrl.value) {
-        URL.revokeObjectURL(previewPdfUrl.value);
-        previewPdfUrl.value = null;
-      }
+      clearnPreviewData();
     }
   },
   {
@@ -101,127 +65,56 @@ watch(
   }
 );
 
-// watchEffect(async () => {
-//   const filePath = inforStore.dataFilePreview!.filePath;
-//   const fileMap = inforStore.dataFilePreview!.fileMap;
-//   const file = fileMap[filePath];
-//   if (!file) return;
+// 获取内容
+const getPreviewContent = async (ext: string | undefined, file: File) => {
+  clearnPreviewData();
 
-//   if (file.size > 2 * 1024 * 1024) {
-//     previewContent.value = "⚠️ 文件过大，不支持预览";
-//     return;
-//   }
-
-//   // 清理上一个 PDF URL（防止内存泄漏）
-//   if (previewPdfUrl.value) {
-//     URL.revokeObjectURL(previewPdfUrl.value);
-//     previewPdfUrl.value = null;
-//   }
-//   previewContent.value = null;
-
-//   const ext = filePath.split(".").pop()?.toLowerCase();
-
-//   // PDF 预览
-//   if (ext === "pdf") {
-//     previewPdfUrl.value = URL.createObjectURL(file);
-//     return;
-//   }
-
-//   // 支持的文本类型
-//   const textExtensions = [
-//     "txt",
-//     "vue",
-//     "jsx",
-//     "js",
-//     "ts",
-//     "tsx",
-//     "xml",
-//     "json",
-//     "html",
-//     "htm",
-//     "css",
-//     "scss",
-//     "md",
-//     "yaml",
-//     "yml",
-//     "ini",
-//     "log",
-//   ];
-
-//   if (ext && textExtensions.includes(ext)) {
-//     try {
-//       const content = await file.text();
-//       previewContent.value = content;
-//     } catch (err) {
-//       previewContent.value = "❌ 无法读取文件内容";
-//     }
-//     return;
-//   }
-
-//   // 不支持的类型
-//   previewContent.value = "⚠️ 不支持预览此类型文件";
-// });
-
-const previewFile = async (filePath: string, fileMap: Record<string, File>) => {
-  const file = fileMap[filePath];
-  if (!file) return;
-
-  if (file.size > 2 * 1024 * 1024) {
-    previewContent.value = "⚠️ 文件过大，不支持预览";
+  if (file.size > 10 * 1024 * 1024) {
+    previewMessage.value = "⚠️ 文件过大（>10MB），不支持预览";
     return;
   }
 
-  // 清理上一个 PDF URL（防止内存泄漏）
-  if (previewPdfUrl.value) {
-    URL.revokeObjectURL(previewPdfUrl.value);
-    previewPdfUrl.value = null;
+  if (ext === undefined) {
+    previewMessage.value = "⚠️ 无法识别文件类型，无法预览";
+    return;
   }
-  previewContent.value = null;
 
-  const ext = filePath.split(".").pop()?.toLowerCase();
+  // 文本类型
+  if (ext && textExtensions.includes(ext)) {
+    try {
+      const content = await file.text();
+      previewTextContent.value = content;
+    } catch (err) {
+      previewMessage.value = "❌ 无法读取文件内容";
+    }
+    return;
+  }
 
-  // PDF 预览
+  // PDF
   if (ext === "pdf") {
     previewPdfUrl.value = URL.createObjectURL(file);
     return;
   }
 
-  // 支持的文本类型
-  const textExtensions = [
-    "txt",
-    "vue",
-    "jsx",
-    "js",
-    "ts",
-    "tsx",
-    "xml",
-    "json",
-    "html",
-    "htm",
-    "css",
-    "scss",
-    "md",
-    "yaml",
-    "yml",
-    "ini",
-    "log",
-  ];
-
-  if (ext && textExtensions.includes(ext)) {
-    try {
-      const content = await file.text();
-      previewContent.value = content;
-    } catch (err) {
-      previewContent.value = "❌ 无法读取文件内容";
-    }
+  // 图片
+  if (ext && imageExtensions.includes(ext)) {
+    previewImageUrl.value = URL.createObjectURL(file);
     return;
   }
 
-  // 不支持的类型
-  previewContent.value = "⚠️ 不支持预览此类型文件";
+  previewMessage.value = "⚠️ 不支持预览此类型文件";
 };
 
-provide("previewFile", previewFile);
+// 请空预览内容
+const clearnPreviewData = () => {
+  previewTextContent.value = null;
+  if (previewPdfUrl.value) {
+    URL.revokeObjectURL(previewPdfUrl.value);
+    previewPdfUrl.value = null;
+  }
+  previewImageUrl.value = null;
+  previewMessage.value = null;
+};
 </script>
 
 <style scoped lang="less">
@@ -256,6 +149,7 @@ provide("previewFile", previewFile);
 
   .pdf-preview {
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
     overflow: auto;
     border: 1px solid #ddd;

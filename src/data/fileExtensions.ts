@@ -1,0 +1,31 @@
+export const textExtensions = [
+  "txt",
+  "vue",
+  "jsx",
+  "js",
+  "ts",
+  "tsx",
+  "xml",
+  "json",
+  "html",
+  "htm",
+  "css",
+  "scss",
+  "md",
+  "yaml",
+  "yml",
+  "ini",
+  "log",
+  "sql",
+  "java",
+];
+
+export const imageExtensions = [
+  "png",
+  "jpg",
+  "jpeg",
+  "gif",
+  "webp",
+  "bmp",
+  "svg",
+];
