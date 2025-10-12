@@ -1,6 +1,6 @@
 export default {
   selectFileBtn: {
-    value: "Choose File",
+    value: "Choose Folder",
   },
   importBtn: {
     value: "Export File Structure",

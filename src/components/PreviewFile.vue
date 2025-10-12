@@ -4,11 +4,11 @@
     <!-- 消息 -->
     <pre v-if="previewMessage" class="code-preview">{{ previewMessage }}</pre>
     <!-- 文本预览 -->
-    <pre
-    v-else-if="previewTextContent"
+    <div
+      v-else-if="previewTextContent"
       class="code-preview"
-      >{{ previewTextContent }}</pre
-    >
+      v-html="highlightCode(previewTextContent)"
+    ></div>
     <!-- PDF 预览 -->
     <iframe
       v-else-if="previewPdfUrl"
@@ -31,15 +31,17 @@ import { ref, watch } from "vue";
 import { useInfoStore } from "../stores/info";
 const inforStore = useInfoStore();
 import { textExtensions, imageExtensions } from "@/data/fileExtensions.ts";
+import hljs from "highlight.js";
+import "highlight.js/styles/github-dark-dimmed.css";
 
 // 预览文件内容
 const previewTextContent = ref<string | null>(null);
 const previewPdfUrl = ref<string | null>(null);
 const previewImageUrl = ref<string | null>(null);
+const previewWordUrl = ref<string | null>(null); // Word 文件 URL
+const previewExcelUrl = ref<string | null>(null); // Excel 文件 URL
 // 消息
 const previewMessage = ref<string | null>(null);
-
-const previewFileType = ref<"text" | "pdf" | "image">();
 
 watch(
   () => inforStore.dataFilePreview,
@@ -70,12 +72,12 @@ const getPreviewContent = async (ext: string | undefined, file: File) => {
   clearnPreviewData();
 
   if (file.size > 10 * 1024 * 1024) {
-    previewMessage.value = "⚠️ 文件过大（>10MB），不支持预览";
+    previewMessage.value = "⚠️ 文件过大（>10MB），暂不支持预览。";
     return;
   }
 
   if (ext === undefined) {
-    previewMessage.value = "⚠️ 无法识别文件类型，无法预览";
+    previewMessage.value = "⚠️ 无法识别文件类型，无法预览。";
     return;
   }
 
@@ -85,7 +87,7 @@ const getPreviewContent = async (ext: string | undefined, file: File) => {
       const content = await file.text();
       previewTextContent.value = content;
     } catch (err) {
-      previewMessage.value = "❌ 无法读取文件内容";
+      previewMessage.value = "❌ 无法读取文件内容。";
     }
     return;
   }
@@ -102,12 +104,27 @@ const getPreviewContent = async (ext: string | undefined, file: File) => {
     return;
   }
 
-  previewMessage.value = "⚠️ 不支持预览此类型文件";
+  previewMessage.value = "⚠️ 暂不支持预览此类型文件。";
+};
+
+const highlightCode = (content: string): string => {
+  if (!content) return "";
+
+  // 自动检测语言并高亮代码
+  return hljs.highlightAuto(content).value;
 };
 
 // 请空预览内容
 const clearnPreviewData = () => {
   previewTextContent.value = null;
+  if (previewWordUrl.value) {
+    URL.revokeObjectURL(previewWordUrl.value);
+    previewWordUrl.value = null;
+  }
+  if (previewExcelUrl.value) {
+    URL.revokeObjectURL(previewExcelUrl.value);
+    previewExcelUrl.value = null;
+  }
   if (previewPdfUrl.value) {
     URL.revokeObjectURL(previewPdfUrl.value);
     previewPdfUrl.value = null;
@@ -145,14 +162,60 @@ const clearnPreviewData = () => {
     background: var(--preview-bg-color);
     border-radius: 6px;
     line-height: 1.4;
+
+    code {
+      display: block;
+      padding: 0;
+      margin: 0;
+      white-space: pre-wrap; /* 允许换行 */
+    }
   }
 
+  .word-preview,
+  .excel-preview,
   .pdf-preview {
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
     overflow: auto;
-    border: 1px solid #ddd;
+  }
+}
+
+.word-preview {
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+  white-space: normal;
+  font-family: "Arial", sans-serif;
+  background: var(--preview-bg-color);
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.excel-preview {
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 0;
+  width: 100%;
+  overflow: auto;
+  white-space: normal;
+  font-family: "Arial", sans-serif;
+  background: var(--preview-bg-color);
+  border-radius: 6px;
+  line-height: 1.4;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    td,
+    th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
   }
 }
 </style>

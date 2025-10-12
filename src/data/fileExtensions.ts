@@ -18,6 +18,7 @@ export const textExtensions = [
   "log",
   "sql",
   "java",
+  "less",
 ];
 
 export const imageExtensions = [

@@ -1,6 +1,6 @@
 export default {
     selectFileBtn: {
-        value: "选择文件",
+        value: "选择文件夹",
     },
     importBtn:{
         value: "导出文件结构",

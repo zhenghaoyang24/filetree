@@ -155,4 +155,8 @@ li:last-child::before {
 span {
   font-family: Arial, sans-serif;
 }
+
+.file-item-name {
+  white-space: nowrap;
+}
 </style>
