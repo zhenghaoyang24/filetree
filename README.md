@@ -5,31 +5,43 @@
 ## 项目简介
 
 FileTree 是一个基于 `Vue3` 的工具，你可以选择一个本地文件夹，并根据其结构生成清晰的文件树。
-生成的文件树可以直观地展示复杂的文件夹结构与文件基本信息，并支持导出为适用于 `Markdown` 增强的格式，方便在 `Markdown` 文件中使用。
+生成的文件树可以直观地展示复杂的文件夹结构与文件基本信息，还可以预览文件。支持导出为适用于拥有 `Markdown` 增强的文件树格式，方便在 `Markdown` 中使用。
 
 ## 功能特性
 
 - **文件夹选择**：你可以选择本地文件夹，系统会自动解析其结构。
 - **文件树生成**：根据文件夹结构生成清晰的文件树，支持展开/折叠操作。
 - **导出功能**：将文件树导出为 `Markdown` 兼容的格式，方便在支持 `Markdown` 增强的编辑器中使用，例如博客主题 [theme-plume](https://theme-plume.vuejs.press/)。
-- **直观展示**：通过树形结构直观展示复杂的文件夹层次关系与文件基本信息。
+- **直观展示**：通过树形结构直观展示复杂的文件夹层次关系与文件基本信息，预览其中的文件。
 
 
-## 示例
+## 预览
 
-### 文件树示例
-![{7003FB0B-A4FD-4DA6-912F-55AA6A9B4721}](https://github.com/user-attachments/assets/5d083206-63e7-4372-8898-cf2390491ddf)
+<img width="1919" height="1079" alt="04bbb2e484848ddb1e4916fcce584594" src="https://github.com/user-attachments/assets/06b56068-f788-474a-ba0d-7b521559834f" />
+<img width="631" height="639" alt="b192f6c8d39c7c0030107137da9933a5" src="https://github.com/user-attachments/assets/dd77bd8e-cda4-49b0-8146-4d4d22210042" />
+
 
 
 ### 导出的 Markdown 格式
 ```markdown
-- example
-  - App.vue
-  - index.ts
-  - folder-02
-    - JavaScript.js
-  - folder-01
+- folder
+  - avatar.png
+  - pofile.jpg
+  - resume.pdf
+  - folder2
+    - combo.docx
+    - mondo.pdf
+    - three.xlsx
+    - today.mp4
+  - folder1
+    - App.vue
+    - data.json
+    - index.html
+    - main.ts
+    - README.md
+    - tb.sql
     - text.txt
+
 ```
 
 ## 安装与运行
