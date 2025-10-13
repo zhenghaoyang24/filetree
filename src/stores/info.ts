@@ -6,7 +6,7 @@ export const useInfoStore = defineStore(
   "info",
   () => {
     // 主题
-    const dataTheme = ref("light");
+    const dataTheme = ref("dark");
     const storeChangeTheme = (theme: string) => {
       if (theme === "light") {
         dataTheme.value = "light";
