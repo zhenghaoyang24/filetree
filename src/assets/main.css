@@ -27,3 +27,7 @@ html {
   /* 让背景只绘制在 padding-box，不覆盖 border 区域 */
   background-clip: padding-box;
 }
+/* 滚动条的“两端”样式 */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
