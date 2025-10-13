@@ -16,8 +16,8 @@ FileTree 是一个基于 `Vue3` 的工具，你可以选择一个本地文件夹
 
 ## 预览
 
-<img width="1919" height="1079" alt="04bbb2e484848ddb1e4916fcce584594" src="https://github.com/user-attachments/assets/06b56068-f788-474a-ba0d-7b521559834f" />
-<img width="631" height="639" alt="b192f6c8d39c7c0030107137da9933a5" src="https://github.com/user-attachments/assets/dd77bd8e-cda4-49b0-8146-4d4d22210042" />
+<img width="1919" height="1079" alt="preview1" src="https://github.com/user-attachments/assets/06b56068-f788-474a-ba0d-7b521559834f" />
+<img width="631" height="639" alt="preview2" src="https://github.com/user-attachments/assets/dd77bd8e-cda4-49b0-8146-4d4d22210042" />
 
 ## 安装与运行
 
