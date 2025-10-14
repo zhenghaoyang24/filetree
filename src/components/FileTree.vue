@@ -48,6 +48,17 @@ const selFolderName = ref<string>("");
 // 处理文件夹选择
 const handleFolderSelect = (event: Event) => {
   const input = event.target as HTMLInputElement;
+
+  if (!input.files || input.files.length === 0) return;
+
+  const files = Array.from(input.files);
+
+  // 检查文件数量
+  if (files.length > 10000) {
+    alert(`文件数量过多（最多 10000 个）`);
+    return;
+  }
+
   if (input.files !== null && input.files.length > 0) {
     inforStore.changeFileInfo(null)
     // 提取选中的文件夹名称
