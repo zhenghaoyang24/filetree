@@ -59,7 +59,7 @@ const getFileIcon = (filename: string): string | undefined => {
     (icon: IconConfig) => icon.type === fileExtension
   );
   // 返回图标，如果未找到则返回 undefined
-  return iconConfig ? iconConfig.icon : "flat-color-icons:document";
+  return iconConfig ? iconConfig.icon : "mdi:file";
 };
 </script>
 

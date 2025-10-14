@@ -177,7 +177,7 @@ const generateFolderStructureTxt = () => {
   };
   structureString.value = convertStructureToString(structure); // 将文件夹结构转换为字符串
   changeDialogState();
-};
+}
 </script>
 
 <style scoped lang="less">
