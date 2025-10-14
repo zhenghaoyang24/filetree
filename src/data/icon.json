@@ -49,15 +49,23 @@
   },
   {
     "type": "java",
-    "icon": "logos:java"
+    "icon": "vscode-icons:file-type-java"
   },
   {
     "type": "cpp",
-    "icon": "vscode-icons:file-type-cpp3"
+    "icon": "vscode-icons:file-type-cpp"
+  },
+  {
+    "type": "c",
+    "icon": "vscode-icons:file-type-c"
+  },
+  {
+    "type": "cs",
+    "icon": "vscode-icons:file-type-csproj"
   },
   {
     "type": "json",
-    "icon": "tabler:json"
+    "icon": "vscode-icons:file-type-json"
   },
   {
     "type": "jpg",
@@ -77,7 +85,7 @@
   },
   {
     "type": "rar",
-    "icon": "vscode-icons:file-type-zip"
+    "icon": "lsicon:file-rar-filled"
   },
   {
     "type": "exe",
@@ -93,7 +101,7 @@
   },
   {
     "type": "sass",
-    "icon": "devicon:sass"
+    "icon": "vscode-icons:file-type-sass"
   },
   {
     "type": "xmind",
@@ -101,11 +109,11 @@
   },
   {
     "type": "py",
-    "icon": "logos:python"
+    "icon": "vscode-icons:file-type-python"
   },
   {
     "type": "sql",
-    "icon": "skill-icons:mysql-dark"
+    "icon": "vscode-icons:file-type-sql"
   },
   {
     "type": "ttf",
@@ -134,5 +142,32 @@
   {
     "type": "xml",
     "icon": "vscode-icons:file-type-xml"
+  },{
+    "type": "go",
+    "icon": "vscode-icons:file-type-go"
+  },
+  {
+    "type": "rs",
+    "icon": "material-icon-theme:rust"
+  },
+  {
+    "type": "swift",
+    "icon": "vscode-icons:file-type-swift"
+  },
+  {
+    "type": "rb",
+    "icon": "vscode-icons:file-type-ruby"
+  },
+  {
+    "type": "php",
+    "icon": "vscode-icons:file-type-php"
+  },
+  {
+    "type": "kt",
+    "icon": "vscode-icons:file-type-kotlin"
+  },
+  {
+    "type": "dart",
+    "icon": "vscode-icons:file-type-dartlang"
   }
 ]

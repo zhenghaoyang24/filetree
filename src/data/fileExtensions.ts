@@ -19,6 +19,15 @@ export const textExtensions = [
   "sql",
   "java",
   "less",
+  "kt",
+  "php",
+  "rb",
+  "go",
+  "swift",
+  "cpp",
+  "c",
+  "cs",
+  "py",
 ];
 
 export const imageExtensions = [
