@@ -1,38 +1,36 @@
 <template>
-    <Teleport to="body">
-        <TextAreaDialog v-if="structureDialogState" :structure="structureString" />
-    </Teleport>
-    <div class="file-tree">
-      <label class="button">
-        <input
-          type="file"
-          style="display: none"
-          id="directoryInput"
-          webkitdirectory
-          @change="handleFolderSelect"
-        />
-        {{ $t("selectFileBtn.value") }}
-      </label>
-      <button
-        v-if="Object.keys(fileMap).length > 0"
-        class="button"  
-        style="margin-left: 15px"
-        @click="generateFolderStructureTxt"
-        >{{ $t("importBtn.value") }}</button
-      >
-      <TreeNode
-        v-if="fileTree.length > 0"
-        :files="fileTree"
-        :fileMap="fileMap"
+  <Teleport to="body">
+    <TextAreaDialog v-if="structureDialogState" :structure="structureString" />
+  </Teleport>
+  <div class="file-tree">
+    <label class="button">
+      <input
+        type="file"
+        style="display: none"
+        id="directoryInput"
+        webkitdirectory
+        @change="handleFolderSelect"
       />
-    </div>
+      {{ $t("selectFileBtn.value") }}
+    </label>
+    <button
+      v-if="Object.keys(fileMap).length > 0"
+      class="button"
+      style="margin-left: 15px"
+      @click="generateFolderStructureTxt"
+    >
+      {{ $t("importBtn.value") }}
+    </button>
+    <TreeNode v-if="fileTree.length > 0" :files="fileTree" :fileMap="fileMap" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import TextAreaDialog from "./TextAreaDialog.vue";
 import { provide, ref } from "vue";
 import TreeNode from "./TreeNode.vue";
-import {useInfoStore} from "../stores/info";
+import { useInfoStore } from "../stores/info";
+import { MAX_TOTAL_SIZE, MAX_FILE_COUNT } from "@/data/constance";
 const inforStore = useInfoStore();
 
 interface FileItem {
@@ -54,20 +52,27 @@ const handleFolderSelect = (event: Event) => {
   const files = Array.from(input.files);
 
   // 检查文件数量
-  if (files.length > 10000) {
-    alert(`文件数量过多（最多 10000 个）`);
+  if (files.length > MAX_FILE_COUNT) {
+    alert(`文件数量过多（最多 ${MAX_FILE_COUNT} 个）`);
+    return;
+  }
+
+  // 检查总大小（注意：File.size 是精确的）
+  const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+  if (totalSize > MAX_TOTAL_SIZE) {
+    alert(`总文件大小超过限制（最多 10GB）`);
     return;
   }
 
   if (input.files !== null && input.files.length > 0) {
-    inforStore.changeFileInfo(null)
+    inforStore.changeFileInfo(null);
     // 提取选中的文件夹名称
     selFolderName.value = input.files[0].webkitRelativePath.split("/")[0];
     fileTree.value = buildFileTree(input.files);
     buildFileMap(input.files);
   }
   // 请空预览数据
-  inforStore.clearFilePreview()
+  inforStore.clearFilePreview();
 };
 // 构建文件树
 const buildFileTree = (files: FileList): FileItem[] => {
@@ -176,29 +181,29 @@ const generateFolderStructureTxt = () => {
 </script>
 
 <style scoped lang="less">
-  .file-tree {
-    max-height: calc(100vh - @nav-height - 10px );
-    overflow: auto;
-    .button {
-      background-color: #6aa0b6; /* 背景颜色 */
-      color: @p-text-color-dark; /* 字体颜色 */
-      font-weight: bold;
-      padding: 6px 10px;
+.file-tree {
+  max-height: calc(100vh - @nav-height - 10px);
+  overflow: auto;
+  .button {
+    background-color: #6aa0b6; /* 背景颜色 */
+    color: @p-text-color-dark; /* 字体颜色 */
+    font-weight: bold;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    box-shadow: 0 0 10px 2px var(--box-shadow-color);
+    transition: background-color 150ms;
+    > input {
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      display: inline-block;
-      box-shadow: 0 0 10px 2px var(--box-shadow-color);
-      transition: background-color 150ms;
-      >input{
-        border: none;
-        outline: none;
-      }
+      outline: none;
+    }
 
-      &:hover {
-        background-color: #8cccd5; /* 悬停时的背景颜色 */
-      }
+    &:hover {
+      background-color: #8cccd5; /* 悬停时的背景颜色 */
     }
   }
+}
 </style>

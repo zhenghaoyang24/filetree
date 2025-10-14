@@ -33,6 +33,7 @@ const inforStore = useInfoStore();
 import { textExtensions, imageExtensions } from "@/data/fileExtensions.ts";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark-dimmed.css";
+import { MAX_PREVIEW_FILE_SIZE } from "@/data/constance";
 
 // 预览文件内容
 const previewTextContent = ref<string | null>(null);
@@ -71,7 +72,7 @@ watch(
 const getPreviewContent = async (ext: string | undefined, file: File) => {
   clearnPreviewData();
 
-  if (file.size > 10 * 1024 * 1024) {
+  if (file.size > MAX_PREVIEW_FILE_SIZE) {
     previewMessage.value = "⚠️ 文件过大（>10MB），暂不支持预览。";
     return;
   }

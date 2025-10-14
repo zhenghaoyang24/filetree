@@ -5,7 +5,7 @@ import IconBtn from "@/components/IconBtn.vue";
 import LogoIcon from "@/components/icons/LogoIcon.vue";
 const toGithub = () => {
   window.open(`https://github.com/zhenghaoyang24/filetree`, "_blank");
-}
+};
 </script>
 
 <template>
@@ -15,8 +15,8 @@ const toGithub = () => {
       File Tree
     </div>
     <div class="nav-ctrl">
-      <LanguageBtn/>
-      <ThemeChangeBtn/>
+      <LanguageBtn />
+      <ThemeChangeBtn />
       <IconBtn icon_="uil:github" :function_="toGithub"></IconBtn>
     </div>
   </nav>
@@ -38,28 +38,26 @@ const toGithub = () => {
   height: @nav-height;
   background-color: var(--nav-bg-color);
 
-
-  .nav-ctrl{
+  .nav-ctrl {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    >span{
+    > span {
       margin: 0 4px;
     }
-    .language-btn{
+    .language-btn {
       color: var(--p-text-color);
     }
   }
 
-  .nav-logo{
-    svg{
+  .nav-logo {
+    svg {
       margin-right: 8px;
     }
-    font-family: '思源黑体',sans-serif;
+    font-family: "思源黑体", sans-serif;
     display: flex;
     align-items: center;
     color: var(--p-text-color);
   }
 }
-
 </style>

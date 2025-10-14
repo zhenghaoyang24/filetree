@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {defineProps, inject, ref} from 'vue';
-import {Icon} from "@iconify/vue";
-import {type FileInfo, type FileItem} from "@/types/file";
-import {useInfoStore} from "../stores/info";
+import { defineProps, inject, ref } from "vue";
+import { Icon } from "@iconify/vue";
+import { type FileInfo, type FileItem } from "@/types/file";
+import { useInfoStore } from "../stores/info";
 const inforStore = useInfoStore();
 
 const props = defineProps<{
-  files: FileItem[] ;
+  files: FileItem[];
   fileMap: Record<string, File>; // 用于存储文件路径和 File 对象的映射
 }>();
 
@@ -17,9 +17,9 @@ const toggleCollapse = (item: FileItem) => {
   }
 };
 
-const updateFileInfo = (info:FileInfo)=>{
+const updateFileInfo = (info: FileInfo) => {
   inforStore.changeFileInfo(info);
-}
+};
 
 // 处理点击事件
 const handleItemClick = (item: FileItem) => {
@@ -30,19 +30,21 @@ const handleItemClick = (item: FileItem) => {
     if (file) {
       const info = {
         name: item.name,
-        type: file.type ? file.type : '未知',
+        type: file.type ? file.type : "未知",
         path: file.webkitRelativePath,
         size: file.size,
-        lastModified: file.lastModified ? new Date(file.lastModified).toLocaleString() : '未知',
-      }
+        lastModified: file.lastModified
+          ? new Date(file.lastModified).toLocaleString()
+          : "未知",
+      };
       updateFileInfo(info);
     }
-    inforStore.changeFilePreview(item.path,props.fileMap)
+    inforStore.changeFilePreview(item.path, props.fileMap);
   }
 };
 
 // 返回图标name
-import icons from "@/data/icon.json"
+import icons from "@/data/icon.json";
 
 interface IconConfig {
   type: string; // 文件后缀
@@ -50,27 +52,33 @@ interface IconConfig {
 }
 
 const getFileIcon = (filename: string): string | undefined => {
-// 获取文件后缀
-  const fileExtension = filename.split('.').pop()?.toLowerCase();
+  // 获取文件后缀
+  const fileExtension = filename.split(".").pop()?.toLowerCase();
   // 在 icon.json 中查找对应的图标
-  const iconConfig = icons.find((icon: IconConfig) => icon.type === fileExtension);
+  const iconConfig = icons.find(
+    (icon: IconConfig) => icon.type === fileExtension
+  );
   // 返回图标，如果未找到则返回 undefined
-  return iconConfig ? iconConfig.icon : 'flat-color-icons:document';
-}
+  return iconConfig ? iconConfig.icon : "flat-color-icons:document";
+};
 </script>
 
 <template>
   <ul>
     <li v-for="item in files" :key="item.path">
-      <div class="file-item"
-           @click="handleItemClick(item)"
-      >
+      <div class="file-item" @click="handleItemClick(item)">
         <span v-if="item.children" class="file-item-label">
-          <Icon icon="ic:baseline-play-arrow" :style="{ transform: item.collapsed ? 'none' : 'rotate(90deg)' }"></Icon>
-          <Icon icon="emojione-v1:open-folder" style="padding:0 5px"/>
+          <Icon
+            icon="ic:baseline-play-arrow"
+            :style="{ transform: item.collapsed ? 'none' : 'rotate(90deg)' }"
+          ></Icon>
+          <Icon icon="emojione-v1:open-folder" style="padding: 0 5px" />
         </span>
         <span v-else class="file-item-label">
-          <Icon :icon="getFileIcon(item.name) || 'flat-color-icons:document'" style="padding:0 5px"/>
+          <Icon
+            :icon="getFileIcon(item.name) || 'flat-color-icons:document'"
+            style="padding: 0 5px"
+          />
         </span>
         <span class="file-item-name">{{ item.name }}</span>
         <span v-if="item.children" class="file-item-label">
@@ -78,17 +86,15 @@ const getFileIcon = (filename: string): string | undefined => {
         </span>
       </div>
       <TreeNode
-          v-if="item.children && !item.collapsed"
-          :files="item.children"
-          :fileMap="fileMap"
+        v-if="item.children && !item.collapsed"
+        :files="item.children"
+        :fileMap="fileMap"
       />
     </li>
   </ul>
 </template>
 
 <style>
-
-
 .file-item {
   cursor: pointer;
   width: fit-content;
@@ -129,7 +135,7 @@ li {
 }
 
 li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -139,7 +145,7 @@ li::before {
 }
 
 li::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
