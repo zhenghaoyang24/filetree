@@ -28,6 +28,7 @@ export const textExtensions = [
   "c",
   "cs",
   "py",
+  "dart",
 ];
 
 export const imageExtensions = [
