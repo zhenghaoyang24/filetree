@@ -5,6 +5,12 @@ import type { FileInfo } from "@/types/file";
 export const useInfoStore = defineStore(
   "info",
   () => {
+    // 语言
+    const dataLanguage = ref("ch");
+    const storeChangeLanguage = (lang: string) => {
+      dataLanguage.value = lang;
+    };
+
     // 主题
     const dataTheme = ref("dark");
     const storeChangeTheme = (theme: string) => {
@@ -47,12 +53,12 @@ export const useInfoStore = defineStore(
       dataFilePreview.value = null
     }
 
-    return { dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo,dataFilePreview,changeFilePreview,clearFilePreview};
+    return { dataLanguage, storeChangeLanguage, dataTheme, storeChangeTheme, storeGetTheme, dataFileInfo, changeFileInfo,dataFilePreview,changeFilePreview,clearFilePreview};
   },
 
   {
     persist: {
-      pick: ["dataTheme"],
+      pick: ["dataTheme", "dataLanguage"],
     },
   }
 );
